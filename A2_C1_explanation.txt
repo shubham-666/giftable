@@ -1,0 +1,10 @@
+Part B choice: Greatest Common Divisor (GCD).
+
+Why I chose it:
+I chose GCD because it shows how a while loop can repeatedly update two values until the remainder becomes zero. It is useful for simplifying fractions and solving problems involving equal groups.
+
+One thing that did not work the first time:
+I initially needed to handle negative inputs. I fixed this by using the absolute values of both numbers before running the Euclidean algorithm.
+
+When I would use while versus for:
+I use a for loop when I know how many times I need to repeat something, such as reading ten marks. I use a while loop when repetition depends on a condition, such as continuing the GCD algorithm until the remainder is zero.
