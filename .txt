@@ -1,0 +1,13 @@
+Which Part B problem did you choose, and why that one?
+
+I chose B1, Largest and Second Largest. I chose it because it was interesting to solve without storing the numbers in a list. It made me think about how to keep track of the largest and second largest values while reading each number.
+
+Describe one thing that did not work the first time, what you thought was wrong, and what was actually wrong.
+
+The first time, I was confused about how to handle the case where the largest number appears twice. I initially thought the second 45 should automatically be the second largest. After reading the requirement carefully, I decided to treat the second largest as the second distinct-largest value, so the answer for 12, 45, 45, 7, 38 is 45 and 38.
+
+In one sentence each: when would you use a while loop, and when would you use a for loop?
+
+I would use a while loop when I need to repeat something until a condition becomes false and I do not know exactly how many repetitions are needed.
+
+I would use a for loop when I know the range or collection of values I need to go through, such as repeating something five times.

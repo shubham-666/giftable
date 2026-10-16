@@ -1,0 +1,38 @@
+1. Why do we make an attribute private with two underscores?
+
+The main reason for making attributes private is to avoid changing them directly by outside users of the class. By using double underscores, we make variables private and inaccessible to prevent them from being changed arbitrarily. For instance, it is not possible to assign any random value to the marks variable. However, set_marks () allows for a controlled way of adjusting the marks variable.
+
+2. Why is a CSV file often more useful than a plain text file for this kind of data?
+
+Comma-separated values (CSV) uses a specific format for storing data as rows and columns. This format is typically used to store student records because one can easily identify the position of the column for the name and marks. CSV format is easily readable in spreadsheet applications such as Excel.
+
+3. What does JSON give you that CSV does not?
+
+JSON is mostly used to store structured data using objects and arrays. The structure of CSV is limited to rows and columns. On the other hand, JSON can store a wide range of structured data including those in CSV formats. Additionally, in JSON, one can store student names, marks, and grades.
+
+4. Why put anything in a finally block?
+
+
+The finally block is always executed when an exception is raised or not. Therefore, it is a good practice to put any code that one needs to run regardless of whether an exception occurred or not. In this assignment, the finally block was used to print a message indicating that the file was processed.
+
+Name: Shubham Tiwari
+Date: 29 September 2026
+1. Why do we make an attribute private with two underscores?
+
+The main reason for making attributes private is to avoid changing them directly by outside users of the class. By using double underscores, we make variables private and inaccessible to prevent them from being changed arbitrarily. For instance, it is not possible to assign any random value to the marks variable. However, set_marks () allows for a controlled way of adjusting the marks variable.
+
+2. Why is a CSV file often more useful than a plain text file for this kind of data?
+
+Comma-separated values (CSV) uses a specific format for storing data as rows and columns. This format is typically used to store student records because one can easily identify the position of the column for the name and marks. CSV format is easily readable in spreadsheet applications such as Excel.
+
+3. What does JSON give you that CSV does not?
+
+JSON is mostly used to store structured data using objects and arrays. The structure of CSV is limited to rows and columns. On the other hand, JSON can store a wide range of structured data including those in CSV formats. Additionally, in JSON, one can store student names, marks, and grades.
+
+4. Why put anything in a finally block?
+
+
+The finally block is always executed when an exception is raised or not. Therefore, it is a good practice to put any code that one needs to run regardless of whether an exception occurred or not. In this assignment, the finally block was used to print a message indicating that the file was processed.
+
+Name: Shubham Tiwari
+Date: 29 September 2026

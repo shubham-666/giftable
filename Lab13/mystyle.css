@@ -1,0 +1,15 @@
+/* Activity 3: do not change styleme.html; style it here. */
+* { box-sizing: border-box; }
+body { max-width: 760px; margin: 0 auto; padding: 24px; background: #f8f1e7; color: #342d2a; font-family: Georgia, "Times New Roman", serif; line-height: 1.6; }
+header { padding: 30px; border-radius: 4px 28px; background: #234e52; color: white; }
+header h1 { margin: 0; font-size: 2.5rem; }
+.role { margin-bottom: 0; color: #d3eee8; font-family: Arial, Helvetica, sans-serif; letter-spacing: .04em; }
+.about, .skills, .projects { margin-top: 20px; padding: 20px; border-left: 5px solid #c26d3a; background: #fffdf8; }
+h2 { margin-top: 0; color: #234e52; }
+.skills ul { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+.skills li { padding: 6px 12px; border-radius: 14px; background: #e8f1fb; color: #234e52; font-family: Arial, Helvetica, sans-serif; }
+.card { margin: 12px 0; padding: 16px; border: 1px solid #ead9c8; border-radius: 14px; background: #fff8ef; }
+.card:hover { background: #f7e6d4; }
+.card h3 { margin-top: 0; color: #9a4f27; }
+footer { padding: 16px; color: #756a63; text-align: center; }
+@media (max-width: 600px) { body { padding: 12px; } header, .about, .skills, .projects { padding: 16px; } header h1 { font-size: 2rem; } }
