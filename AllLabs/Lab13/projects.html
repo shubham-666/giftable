@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Explore Shubham's Python Mini Library System and try its book actions in a small browser demo."><title>Mini Library System | Shubham Tiwari</title><link rel="stylesheet" href="style.css"></head>
+<body><div class="container">
+  <nav aria-label="Main navigation"><a href="index.html">Resume</a><a href="projects.html" aria-current="page">Library project</a></nav>
+  <header class="hero compact"><p class="eyebrow">My Python project</p><h1>Mini Library System</h1><p class="role">A small command-line program for keeping track of books</p><p>I built this project to practise Python classes, methods, dictionaries, and working with files. The section below is a small JavaScript demo of adding, borrowing, and returning books; the original Python program runs in the terminal.</p></header>
+  <main>
+    <section class="panel project-detail" id="mini-library"><h2>What it can do</h2><ul><li>Add a book with its title, author, and number of copies.</li><li>Show the books currently stored in the program.</li><li>Borrow a copy when one is available, or return a borrowed copy.</li><li>Save the book list to <code>library.json</code> and load it again later.</li><li>Export the current book list as <code>library.csv</code>.</li><li>Read and display the contents of a text file.</li></ul></section>
+    <section class="panel project-detail" aria-labelledby="demo-title">
+      <h2 id="demo-title">Try the browser demo</h2>
+      <p>Add a title and author, then use the buttons on a book card. This demo keeps its list in memory, so refreshing the page starts a new list. The Python program separately saves and loads JSON files.</p>
+      <div class="library-stats" aria-label="Library totals">
+        <p><strong id="title-count">0</strong> titles</p>
+        <p><strong id="copy-count">0</strong> available copies</p>
+      </div>
+      <form id="book-form" class="book-form">
+        <div><label for="book-title">Book title</label><input id="book-title" name="title" type="text" required maxlength="120"></div>
+        <div><label for="book-author">Author</label><input id="book-author" name="author" type="text" required maxlength="120"></div>
+        <div><label for="book-copies">Copies to add</label><input id="book-copies" name="copies" type="number" min="1" step="1" value="1" required></div>
+        <button type="submit">Add book</button>
+      </form>
+      <p id="library-message" class="library-message" role="status" aria-live="polite"></p>
+      <div id="book-shelf" class="book-shelf" aria-live="polite"><p class="empty-shelf">No books yet. Add one above to get started.</p></div>
+    </section>
+    <section class="panel project-detail"><h2>How the code is organised</h2><p><strong><code>Book</code> class:</strong> Each book object stores its title, author, and available-copy count. The copy count is private, and the <code>borrow()</code> method reduces it only when a copy is available. Returning a book adds one to the available count; the program does not keep a separate record of individual loans.</p><p><strong><code>Library</code> class:</strong> The library keeps book objects in a dictionary. It uses a lower-case, trimmed title as the lookup key, so searching for a title is not affected by its letter case.</p><p><strong><code>main.py</code>:</strong> A menu asks which operation to perform and calls the matching library method. Invalid number input and file-operation errors are caught and shown to the user.</p></section>
+    <section class="panel project-detail"><h2>What I learned</h2><p>I learned how to split a program between classes, use methods to protect and update an object's data, and keep information after a program closes by writing it to a file. JSON stores the book records in a format Python can load again; CSV puts the records into rows that spreadsheet programs can open.</p><p>The project also taught me to check important edge cases: a book might not exist, there might be no copies available, or a file might be missing or have invalid JSON.</p></section>
+    <section class="panel project-detail"><h2>Try it in Python</h2><p>Run <code>main.py</code> from the <code>A9_Mini_Library</code> folder. Choose a number from the menu to add, list, borrow, return, save, load, export, or read a text file. Run <code>check.py</code> in the same folder to try the project's checks for borrowing, adding copies, JSON, and CSV.</p></section>
+    <p class="back-link"><a href="index.html">Back to my resume</a></p>
+  </main><footer><p>Made by hand with HTML, CSS, and a little JavaScript.</p></footer>
+</div><script src="script.js"></script></body></html>

@@ -1,0 +1,59 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #f3f6fb; color: #263247; font-family: Arial, Helvetica, sans-serif; line-height: 1.6; }
+.container { max-width: 800px; margin: 0 auto; padding: 24px; }
+nav { margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #d8e0eb; }
+nav a { display: inline-block; margin-right: 18px; color: #174ea6; text-decoration: none; font-weight: bold; }
+nav a:hover, nav a[aria-current="page"] { color: #102f66; text-decoration: underline; }
+.hero { padding: 28px; border-radius: 16px; background: #173b70; color: white; }
+.hero h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.15; }
+.eyebrow { margin: 0 0 8px; color: #c6ddff; font-size: .85rem; font-weight: bold; letter-spacing: .08em; text-transform: uppercase; }
+.role { margin: 10px 0; color: #dceaff; font-size: 1.1rem; font-weight: bold; }
+.compact { margin-bottom: 20px; }
+.facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
+.fact { flex: 1 1 150px; padding: 16px; border-radius: 10px; background: white; text-align: center; box-shadow: 0 3px 12px rgba(23,59,112,.08); }
+.fact b { display: block; color: #174ea6; font-size: 28px; }
+.fact span { color: #667085; font-size: 14px; }
+.panel { margin: 18px 0; padding: 22px; border: 1px solid #e0e6ef; border-radius: 12px; background: white; }
+h2 { margin-top: 0; color: #173b70; }
+.skills ul { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+.skills li { padding: 6px 12px; border-radius: 14px; background: #e2edff; color: #174078; font-weight: bold; }
+.card { margin: 12px 0; padding: 18px; border: 1px solid #d8e5f8; border-radius: 12px; background: #f7faff; transition: background .2s ease, transform .2s ease; }
+.card:hover { background: #eaf2ff; transform: translateY(-2px); }
+.card h3 { margin-top: 0; }
+a { color: #174ea6; }
+.project-detail { scroll-margin-top: 20px; }
+.back-link { margin: 24px 0; }
+form { display: flex; flex-direction: column; gap: 6px; max-width: 420px; }
+label { margin-top: 8px; font-size: 14px; font-weight: bold; }
+input, textarea { width: 100%; padding: 9px; border: 1px solid #c7d0dd; border-radius: 5px; font-size: 15px; font-family: inherit; }
+input:focus, textarea:focus { outline: 2px solid #8ab4f8; border-color: #174ea6; }
+button { margin-top: 8px; padding: 10px 14px; border: 0; border-radius: 5px; background: #0066cc; color: white; font-size: 15px; cursor: pointer; }
+button:hover { background: #004f9e; }
+.form-note, footer { color: #667085; }
+.form-note { font-size: .9rem; }
+footer { padding: 14px 0; text-align: center; }
+@media (max-width: 600px) { .container { padding: 14px; } .hero, .panel { padding: 18px; } .facts { flex-direction: column; } nav a { margin-right: 12px; } }
+@media (prefers-color-scheme: dark) { body { background: #111827; color: #e5e7eb; } .panel, .fact { background: #1f2937; border-color: #374151; } .card { background: #263449; border-color: #40516a; } h2, .card h3 { color: #bfdbfe; } .fact span, .form-note, footer { color: #cbd5e1; } }
+.membership { background: #eef4fb; border-left: 4px solid #0066cc; }
+.library-stats { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.library-stats p { flex: 1 1 150px; margin: 0; padding: 12px; border-radius: 8px; background: #eaf2ff; text-align: center; }
+.library-stats strong { color: #173b70; font-size: 1.35rem; }
+.book-form { display: flex; flex-direction: row; align-items: end; flex-wrap: wrap; gap: 12px; max-width: none; }
+.book-form > div { flex: 1 1 160px; }
+.book-form button { margin: 0; }
+.book-shelf { margin-top: 18px; }
+.book-card { margin: 12px 0; padding: 16px; border-left: 4px solid #173b70; border-radius: 8px; background: #f7faff; }
+.book-card h3 { margin: 0; color: #173b70; }
+.book-author, .book-count { margin: 4px 0; }
+.book-author { color: #667085; }
+.book-count { color: #174078; font-weight: bold; }
+.book-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.book-actions button { margin-top: 4px; }
+.empty-shelf, .library-message { color: #667085; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #8ab4f8; outline-offset: 2px; }
+@media (prefers-color-scheme: dark) {
+  .library-stats p, .book-card { background: #263449; }
+  .library-stats strong, .book-card h3 { color: #bfdbfe; }
+  .book-count { color: #dbeafe; }
+}
+@media (max-width: 600px) { .book-form { flex-direction: column; align-items: stretch; } .book-form > div { width: 100%; } }
