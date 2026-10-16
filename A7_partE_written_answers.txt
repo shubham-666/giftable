@@ -1,0 +1,14 @@
+1. Why do we use private attributes?
+Private attributes help protect an object's data from being changed directly from outside the class.
+
+2. Why validate marks?
+Validation prevents invalid marks, such as 150 or -5, from being stored.
+
+3. Why use CSV and JSON?
+CSV is useful for tabular data and spreadsheets. JSON is useful for storing structured data such as lists and dictionaries.
+
+4. What does finally do?
+The finally block runs whether an exception occurs or not, so it is useful for cleanup or a final status message.
+
+Voice note (under 60 seconds):
+"My program takes details for three students and stores each student's name and marks in a list of dictionaries. It writes the data to a text file, a CSV file, and a JSON file. Then it opens each file again and prints the saved data. This helped me practise file writing, reading, and working with different file formats."
