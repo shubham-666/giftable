@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px #0001;
+        }
+
+        h1 {
+            color: #243b55;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input, select {
+            flex: 1;
+            min-width: 130px;
+        }
+
+        button {
+            border: none;
+            color: white;
+            cursor: pointer;
+            background: #2563eb;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .edit-btn {
+            background: #e99b12;
+        }
+
+        #message {
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .total {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #243b55;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Personal Expense Tracker</h1>
+
+    <form id="expenseForm">
+        <input type="hidden" id="expenseId">
+
+        <input
+            type="text"
+            id="description"
+            placeholder="Description (e.g. Lunch)"
+            required
+        >
+
+        <input
+            type="number"
+            id="amount"
+            placeholder="Amount"
+            min="0.01"
+            step="any"
+            required
+        >
+
+        <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+            <option value="Education">Education</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <button type="submit" id="submitBtn">Add Expense</button>
+        <button type="button" onclick="resetForm()">Clear</button>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <div class="total">
+        Total Spent: ₹<span id="total">0.00</span>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="expenseTable">
+                <tr>
+                    <td colspan="5">Loading expenses...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    const form = document.getElementById("expenseForm");
+
+    const descriptionInput = document.getElementById("description");
+    const amountInput = document.getElementById("amount");
+    const categoryInput = document.getElementById("category");
+    const expenseIdInput = document.getElementById("expenseId");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const messageBox = document.getElementById("message");
+    const expenseTable = document.getElementById("expenseTable");
+    const totalBox = document.getElementById("total");
+
+    function showMessage(message, isError = false) {
+        messageBox.textContent = message;
+        messageBox.style.color = isError ? "red" : "green";
+    }
+
+    async function apiRequest(url, options = {}) {
+        const response = await fetch(url, options);
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Something went wrong");
+        }
+
+        return data;
+    }
+
+    // GET: Fetch and display all expenses
+    async function loadExpenses() {
+        try {
+            const data = await apiRequest("/expenses");
+
+            expenseTable.innerHTML = "";
+
+            if (data.expenses.length === 0) {
+                expenseTable.innerHTML = `
+                    <tr>
+                        <td colspan="5">No expenses found.</td>
+                    </tr>
+                `;
+            }
+
+            data.expenses.forEach(expense => {
+                const row = document.createElement("tr");
+
+                const values = [
+                    expense.id,
+                    expense.description,
+                    "₹" + Number(expense.amount).toFixed(2),
+                    expense.category
+                ];
+
+                values.forEach(value => {
+                    const cell = document.createElement("td");
+                    cell.textContent = value;
+                    row.appendChild(cell);
+                });
+
+                const actions = document.createElement("td");
+
+                const editBtn = document.createElement("button");
+                editBtn.textContent = "Edit";
+                editBtn.className = "edit-btn";
+                editBtn.onclick = () => editExpense(expense);
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.className = "delete-btn";
+                deleteBtn.onclick = () => deleteExpense(expense.id);
+
+                actions.append(editBtn, deleteBtn);
+                row.appendChild(actions);
+                expenseTable.appendChild(row);
+            });
+
+            totalBox.textContent = Number(data.total).toFixed(2);
+
+        } catch (error) {
+            showMessage(error.message, true);
+        }
+    }
+
+    // POST: Add expense / PUT: Update expense
+    form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const description = descriptionInput.value.trim();
+        const amount = Number(amountInput.value);
+        const category = categoryInput.value.trim();
+        const expenseId = expenseIdInput.value;
+
+        if (!description) {
+            showMessage("Description cannot be empty.", true);
+            return;
+        }
+
+        if (!category) {
+            showMessage("Please select a category.", true);
+            return;
+        }
+
+        if (!Number.isFinite(amount) || amount <= 0) {
+            showMessage("Amount must be greater than zero.", true);
+            return;
+        }
+
+        const expense = {
+            description: description,
+            amount: amount,
+            category: category
+        };
+
+        try {
+            let result;
+
+            if (expenseId) {
+                result = await apiRequest(`/expenses/${expenseId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(expense)
+                });
+            } else {
+                result = await apiRequest("/expenses", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(expense)
+                });
+            }
+
+            showMessage(result.message);
+            resetForm();
+            await loadExpenses();
+
+        } catch (error) {
+            showMessage(error.message, true);
+        }
+    });
+
+    // Fill the form so an expense can be edited
+    function editExpense(expense) {
+        expenseIdInput.value = expense.id;
+        descriptionInput.value = expense.description;
+        amountInput.value = expense.amount;
+        categoryInput.value = expense.category;
+
+        submitBtn.textContent = "Update Expense";
+        showMessage("Editing expense ID " + expense.id);
+        descriptionInput.focus();
+    }
+
+    // DELETE: Remove expense by ID
+    async function deleteExpense(id) {
+        if (!confirm("Delete expense ID " + id + "?")) {
+            return;
+        }
+
+        try {
+            const result = await apiRequest(`/expenses/${id}`, {
+                method: "DELETE"
+            });
+
+            showMessage(result.message);
+            await loadExpenses();
+
+            if (expenseIdInput.value === String(id)) {
+                resetForm();
+            }
+
+        } catch (error) {
+            showMessage(error.message, true);
+        }
+    }
+
+    function resetForm() {
+        form.reset();
+        expenseIdInput.value = "";
+        submitBtn.textContent = "Add Expense";
+    }
+
+    // Load expenses when the page opens
+    loadExpenses();
+</script>
+
+</body>
+</html>
